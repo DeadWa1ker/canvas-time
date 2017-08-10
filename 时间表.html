@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		
+		html, body{
+			height: 100%;
+		}
+	</style>
+</head>
+<body>
+	<canvas width="1000" height="600">
+		
+	</canvas>
+</body>
+</html>
+<script src="./js/digit.js"></script>
+<script src="./js/arc.js"></script>
+<script>
+var can = document.querySelector("canvas");
+var pen = can.getContext("2d");
+var balls =[];
+var date;
+var old_s;
+var st;
+setInterval(function()
+	{	
+		var time = new Date();
+		var h = time.getHours().toString();
+		var m= time.getMinutes().toString();	
+		var s = time.getSeconds().toString();
+		if(h.length==1)
+		{
+			h= "0"+h;
+		}
+		if(m.length==1)
+		{
+			m= "0"+m;
+		}
+		if(s.length==1)
+		{
+			s= "0"+s;
+		}
+
+		 date = h+m+s;
+		if(h+m+s != date)
+		{
+			date = h+m+s;
+		}
+		var timearr = date.split("");
+		
+		ball(balls, 15, 15,5, digit[timearr[0]],100,0);
+		ball(balls, 15, 15,5, digit[timearr[1]],210,0);
+		ball(balls, 15, 15,5, digit[10],310,0);
+		ball(balls, 15, 15,5, digit[timearr[2]],400,0);
+		ball(balls, 15, 15,5, digit[timearr[3]],510,0);
+		ball(balls, 15, 15,5, digit[10],610,0);
+		ball(balls, 15, 15,5, digit[timearr[4]],700,0);
+		ball(balls, 15, 15,5, digit[timearr[5]],810,0);
+		var old_s = timearr[5];
+		if(s !=old_s)
+		{
+			st = 1;
+		}
+},1000)	
+setInterval(function(){
+		pen.clearRect(0, 0, 1000, 600);
+		for(var i = 0; i < balls.length; i++)
+		{
+			if(st==1)
+			{
+				balls[i].v += balls[i].g;
+				balls[i].y += balls[i].v;
+				balls[i].x += balls[i].xv;
+				if(balls[i].y >= 595)
+				{
+					balls[i].y = 595;
+					balls[i].v = - balls[i].v*0.7;
+				}			
+			}
+			pen.beginPath();
+			pen.fillStyle = balls[i].c;
+			pen.arc(balls[i].x, balls[i].y, balls[i].r, 0, Math.PI*2);
+			pen.fill();
+			pen.closePath();
+			if(balls[i].x>= 995 || balls[i].x <= 5)
+			{
+				balls.splice(i, 1);
+			}
+		}
+	},1000/24)
+
+</script>
