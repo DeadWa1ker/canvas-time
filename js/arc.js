@@ -2,12 +2,7 @@ function ball(balls, x, y, r_, arr, px, py){
 	var px_ = px || 300;
 	var py_ = py || 20;
 	var colors = [
-			'#FFA400',
-			'#5C0DAC',
-			'#FFAA00',
-			'#1240AB',
-			'#009999',
-			'#00CC00'
+			"#33B5E5","#0099CC","#AA66CC","#9933CC","#99CC00","#669900","#FFBB33","#FF8800","#FF4444","#CC0000"
 		];	
 	for(var i = 0; i < arr.length; i ++){
 		for(var j = 0; j < arr[i].length; j++){
@@ -21,6 +16,7 @@ function ball(balls, x, y, r_, arr, px, py){
 					v: 0,
 					c: colors[cNum],
 					xv: Math.pow(-1, Math.ceil((Math.random()*10)))*6,
+					status:0,
 				})		
 			}
 		}
